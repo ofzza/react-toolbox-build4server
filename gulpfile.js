@@ -13,22 +13,22 @@
 // Require from local node_modules, in case of inclusion from another project
 var fs          = require('fs'),
     path        = require('path'),
-    _           = require('./node_modules/lodash'),
-    colors      = require('./node_modules/colors'),
-    gulpLocal   = require('./node_modules/gulp'),
-    gulpClean   = require('./node_modules/gulp-clean'),
-    gulpConcat  = require('./node_modules/gulp-concat'),
-    gulpRename  = require("./node_modules/gulp-rename"),
-    gulpSrcmaps = require('./node_modules/gulp-sourcemaps'),
-    gulpSass    = require('./node_modules/gulp-sass'),
-    gulpBabel   = require('./node_modules/gulp-babel'),
-    gulpPostcss = require('./node_modules/gulp-postcss'),
-    postcss     = require('./node_modules/postcss'),
-    pcssPrefixer= require('./node_modules/autoprefixer'),
-    pcssImport  = require('./node_modules/postcss-partial-import'),
-    pcssScss    = require('./node_modules/postcss-scss'),
-    pcssHash    = require('./node_modules/postcss-hash-classname'),
-    through     = require('./node_modules/through2');
+    _           = require('lodash'),
+    colors      = require('colors'),
+    gulpLocal   = require('gulp'),
+    gulpClean   = require('gulp-clean'),
+    gulpConcat  = require('gulp-concat'),
+    gulpRename  = require("gulp-rename"),
+    gulpSrcmaps = require('gulp-sourcemaps'),
+    gulpSass    = require('gulp-sass'),
+    gulpBabel   = require('gulp-babel'),
+    gulpPostcss = require('gulp-postcss'),
+    postcss     = require('postcss'),
+    pcssPrefixer= require('autoprefixer'),
+    pcssImport  = require('postcss-partial-import'),
+    pcssScss    = require('postcss-scss'),
+    pcssHash    = require('postcss-hash-classname'),
+    through     = require('through2');
 
 
 /**
@@ -69,11 +69,20 @@ module.exports = function (gulp, src, dest, scssPrepend) {
                     path.join(dest, 'jsx')
                 ));
         });
+
+        // Detect location of normalize.css module (as peer dependency or as local dependency)
+        var normalizeSrcPath = path.join(__dirname, '../normalize.css/normalize.css');
+        try {
+            var stats = fs.statSync(normalizeSrcPath)
+            if (!stats || !stats.isFile()) {
+                normalizeSrcPath = path.join(__dirname, './node_modules/normalize.css/normalize.css');
+            }
+        } catch (err) {
+            normalizeSrcPath = path.join(__dirname, './node_modules/normalize.css/normalize.css');
+        }
         // Copy normalize.css code into destination directory for compilation
         gulp.task('react-toolbox-build4server.copy.normalize-css', function () {
-            return gulp.src(
-                './node_modules/normalize.css/normalize.css'
-            )
+            return gulp.src( normalizeSrcPath )
                 .pipe(gulpRename(function (path) {
                     path.basename = '~normalize';
                     path.extname = '.css';
@@ -321,9 +330,12 @@ module.exports = function (gulp, src, dest, scssPrepend) {
 
     // Define main task
     // -----------------------------------------------------------------------------------------------------------------
-    gulp.task('react-toolbox-build4server', require('./node_modules/gulp-sync')(gulp).sync([
+    gulp.task('react-toolbox-build4server', require('gulp-sync')(gulp).sync([
 
         'react-toolbox-build4server.clear',
+
+        'react-toolbox-build4server.concat.colors.scss',
+        'react-toolbox-build4server.concat.config.scss',
 
         'react-toolbox-build4server.copy.react-toolbox',
         'react-toolbox-build4server.copy.normalize-css',
@@ -332,8 +344,6 @@ module.exports = function (gulp, src, dest, scssPrepend) {
         'react-toolbox-build4server.scss.process.clear',
         'react-toolbox-build4server.scss.process.finish',
 
-        'react-toolbox-build4server.concat.colors.scss',
-        'react-toolbox-build4server.concat.config.scss',
         'react-toolbox-build4server.concat.style.scss',
         'react-toolbox-build4server.compile.style.scss',
 
@@ -355,10 +365,24 @@ if (gulpfileModule.filename.indexOf('react-toolbox-build4server') >= 0) {
     // Prompt detected direct run
     console.log('REACT-TOOLBOX-BUILD4SERVER: '.green + 'Detected direct build in project directory.');
 
+    // Find react-toolbox path
+    var parsedDir = __dirname.replace(/\\/g, '/').split('/'),
+        parentDir = (parsedDir.length >= 2 ? parsedDir[parsedDir.length - 2] : null);
+
+    // Detect location of react-toolbox module (as peer dependency or as local dependency)
+    var rtSrcPath = path.join(__dirname, '../react-toolbox');
+    try {
+        var stats = fs.statSync(rtSrcPath)
+        if (!stats || !stats.isDirectory()) {
+            rtSrcPath = path.join(__dirname, './node_modules/react-toolbox');
+        }
+    } catch (err) {
+        rtSrcPath = path.join(__dirname, './node_modules/react-toolbox');
+    }
     // Configure tasks
     module.exports(
         gulpLocal,
-        path.join(__dirname, 'node_modules/react-toolbox'),
+        rtSrcPath,
         path.join(__dirname, 'react-toolbox')
     );
 

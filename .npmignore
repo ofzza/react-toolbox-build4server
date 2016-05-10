@@ -1,0 +1,18 @@
+### Dependencies
+bower_modules/
+node_modules/
+.travis.yml
+.gitignore
+
+### IDEs
+.idea
+.vscode
+
+### Built resources
+react-toolbox/
+demo.js
+demo.js.map
+
+### Misc
+*.log
+*.bak

@@ -11,7 +11,8 @@ var fs = require('fs'),
         // Define demo react component
         var component = require('./demo').default,
             compiledComponent = ReactDOMServer.renderToString(React.createElement(component), null, 2),
-            compiledComponentStyle = fs.readFileSync('./react-toolbox/style.css').toString();
+            compiledComponentStyle = fs.readFileSync('./react-toolbox/style.css').toString(),
+            demoStyle = fs.readFileSync('./demo.css').toString();
 
         // Handle request
         response.end(
@@ -22,12 +23,7 @@ var fs = require('fs'),
                 '</head>' +
                 '<body>' + '' +
                     '<style>' +
-                        '@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);' +
-                        '* { margin: 0; padding: 0; }' +
-                        'html {' +
-                            'font-family: "Roboto";' +
-                            'font-size: 62.5%;' +
-                        '}' +
+                        demoStyle + '\r\n\r\n' +  
                         compiledComponentStyle +
                     '</style>' +
                     compiledComponent +
