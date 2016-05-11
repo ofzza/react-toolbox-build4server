@@ -10,8 +10,6 @@ node_modules/
 
 ### Built resources
 react-toolbox/
-demo.js
-demo.js.map
 
 ### Misc
 *.log

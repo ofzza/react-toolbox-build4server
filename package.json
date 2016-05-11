@@ -1,12 +1,11 @@
 {
   "name": "react-toolbox-build4server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Builds react-toolbox in such a way that it's components can be required and used in node - most likely for server-side rendered webapps - without having to depend on webpack to build your entire server-side project",
   "main": "./react-toolbox",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "gulp"
+    "postinstall": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -15,6 +14,8 @@
   "keywords": [
     "react",
     "react-toolbox",
+    "material-design",
+    "isomorphic",
     "server-side",
     "build"
   ],
@@ -47,16 +48,8 @@
     "postcss-partial-import": "^1.3.0",
     "postcss-scss": "^0.1.7",
     "postcss-selector-parser": "^2.0.0",
-    "react": "*",
-    "react-dom": "*",
-    "react-addons-css-transition-group": "*",
+    "react-addons-css-transition-group": "^0.14.8",
     "react-toolbox": "^0.16.2",
     "through2": "^2.0.1"
-  },
-  "peerDependencies": {
-    "react": "*",
-    "react-dom": "*",
-    "react-addons-css-transition-group": "*",
-    "react-toolbox": "^0.16.2"
   }
 }

@@ -386,17 +386,8 @@ if (gulpfileModule.filename.indexOf('react-toolbox-build4server') >= 0) {
         path.join(__dirname, 'react-toolbox')
     );
 
-    // Expose compile demo task
-    gulpLocal.task('react-toolbox-build4server.transpile.demo', function () {
-        return gulpLocal.src('demo.jsx')
-            .pipe(gulpSrcmaps.init())
-            .pipe(gulpBabel({ presets: ['es2015', 'stage-0', 'react'] }))
-            .pipe(gulpSrcmaps.write('.'))
-            .pipe(gulpLocal.dest('./'));
-    });
-
     // Expose default task
-    gulpLocal.task('default', ['react-toolbox-build4server', 'react-toolbox-build4server.transpile.demo']);
+    gulpLocal.task('default', ['react-toolbox-build4server']);
 
 } else {
 

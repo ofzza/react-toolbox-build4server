@@ -23,7 +23,6 @@ This is where things can get pretty tricky and where **react-toolbox-build4serve
 $ npm install -g gulp
 ```
 
-
 ## Install
 
 ```
@@ -32,16 +31,10 @@ $ npm install react-toolbox-build4server
 
 Major and minor version of the **react-toolbox-build4server** module will match the version of [**react-toolbox**](http://react-toolbox.com) it is building.
 
-## Demo
+## Example
 
-To start the server with the demo server-side rendered app, run:
+Example project with server-side rendered react-toolbox components, using react-toolbox-build4server can be found [here](https://github.com/ofzza/react-toolbox-build4server-example).  
 
-```
-$ cd node_modules/react-toolbox-build4server
-$ npm start
-```
-
-Then point your browser to ```http://localhost:3001``` - the component you're seeing is located in ```demo.jsx``` and is an example of server-side rendering of [**react-toolbox**](http://react-toolbox.com) components.
 ## Use pre-built react-toolbox components
 
 After installing you can just import and use any of the components provided by [**react-toolbox**](http://react-toolbox.com). 
