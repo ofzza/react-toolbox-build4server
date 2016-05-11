@@ -1,6 +1,6 @@
 {
   "name": "react-toolbox-build4server",
-  "version": "0.0.2",
+  "version": "0.16.2",
   "description": "Builds react-toolbox in such a way that it's components can be required and used in node - most likely for server-side rendered webapps - without having to depend on webpack to build your entire server-side project",
   "main": "./react-toolbox",
   "scripts": {
