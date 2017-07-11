@@ -358,9 +358,9 @@ module.exports = function (gulp, src, dest, scssPrepend) {
 
 // Check if GULP called locally to this project or if this file is being included into an outside project
 var gulpfileModule = _.find(require.main.children, function (child) {
-    return (_.last(child.filename.replace(/\\/g, '/').split('/')) == 'gulpfile.js');
-});
-if (gulpfileModule.filename.indexOf('react-toolbox-build4server') >= 0) {
+    return _.endsWith(child.filename, 'gulpfile.js');
+}) || true;
+if (gulpfileModule === true || gulpfileModule.filename.indexOf('react-toolbox-build4server') >= 0) {
 
     // Prompt detected direct run
     console.log('REACT-TOOLBOX-BUILD4SERVER: '.green + 'Detected direct build in project directory.');
